@@ -2,10 +2,8 @@ import Pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 import fs from "fs";
 
-const image1 = "../full_calendar.png";
-const image2 = "../full_calendar2.png";
-
-fs.createReadStream(image1)
+const compareImages = (image1, image2) => {
+    fs.createReadStream(image1)
     .pipe(new PNG())
     .on("parsed", function() {
         const img1 = this;
@@ -40,3 +38,7 @@ fs.createReadStream(image1)
                 console.log(err);
             });
     })
+
+}
+
+export default compareImages;
