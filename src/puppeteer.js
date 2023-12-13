@@ -13,6 +13,7 @@ const takeScreenshot = async () => {
   const calendarContainer = await page.$('.cp_calendar');
   if (calendarContainer) {
     await calendarContainer.screenshot({ path: 'full_calendar.png' });
+    console.log('Screenshot taken.'); 
   } else {
     console.log('Calendar container not found or is not visible.');
   }
