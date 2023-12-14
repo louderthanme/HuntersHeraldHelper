@@ -19,8 +19,8 @@ export const runProcess = async () => {
 
         if (!imagesAreTheSame) {
             console.log('Images are different, uploading new image.');
-            const uploadedImageUrl = await uploadImage(image2);
-            // TODO: Update Firebase with uploadedImageUrl
+            const {uploadedImageUrl, publicId} = await uploadImage(image2);
+            // TODO: Update Firebase with uploadedImageUrl. Also, integrate firebase to begin with
             console.log('New image uploaded and URL saved.');
         } else {
             console.log('Images are the same.');
