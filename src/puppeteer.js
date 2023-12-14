@@ -24,3 +24,5 @@ const takeScreenshot = async () => {
       await browser.close(); // Ensure the browser is closed in case of error or success
   }
 }
+
+export default takeScreenshot;

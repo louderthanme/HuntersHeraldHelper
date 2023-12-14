@@ -10,8 +10,10 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
 
-const uploadImage = async (image) => {
-    return await cloudinary.uploader.upload(image, {folder: 'HuntersHeraldHelper'});
-}
-
-export default uploadImage;
+export const uploadImage = async (image) => {
+    let imageUrl = '';
+     const result = await cloudinary.uploader.upload(image, {folder: 'HuntersHeraldHelper'});
+     console.log(result)
+     imageUrl = result.url;
+     return imageUrl;
+  }
