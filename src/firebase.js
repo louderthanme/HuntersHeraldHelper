@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 //firestore
-import { getFirestore, collection, setDoc, getDoc, updateDoc, addDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, addDoc } from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -26,10 +26,9 @@ export const setImageInFirestore = async (publicId, url) => {
             publicId: publicId,
             url: url
         });
-        return { publicId, url };
+        return console.log("Image set in Firestore.");
     } catch (error) {
         console.error("Error setting image in Firestore:", error);
-        // You might want to rethrow the error or handle it as needed
     }
 }
 
