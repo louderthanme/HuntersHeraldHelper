@@ -15,7 +15,7 @@ cloudinary.config({
         const result = await cloudinary.uploader.upload(image, { folder: 'HuntersHeraldHelper' });
         const imageUrl = result.url;
         const publicId = result.public_id;
-        return { imageUrl, publicId };
+        return { publicId, imageUrl };
     } catch (error) {
         console.error('Error uploading image to Cloudinary:', error.message);
         throw error;

@@ -1,6 +1,7 @@
 import takeScreenshot from "./puppeteer.js";
 import areImagesTheSame from "./imageComparison.js"
-import {uploadImage} from "./cloudinary.js";
+import {uploadImage, deleteImage} from "./cloudinary.js";
+import { updateImageInFirestore, getImageFromFirestore } from "./firebase.js";
 
 export const runProcess = async () => {
     const image1 = 'full_calendar2.png';
@@ -19,9 +20,20 @@ export const runProcess = async () => {
 
         if (!imagesAreTheSame) {
             console.log('Images are different, uploading new image.');
-            const {uploadedImageUrl, publicId} = await uploadImage(image2);
-            // TODO: Update Firebase with uploadedImageUrl. Also, integrate firebase to begin with
-            console.log('New image uploaded and URL saved.');
+
+            const oldImageData = await getImageFromFirestore();
+            const {publicId, imageUrl} = await uploadImage(image2);
+            console.log('New image uploaded to Cloudinary.');
+            await updateImageInFirestore(publicId, imageUrl);
+            console.log('New image updated in Firestore.');
+            
+            if(oldImageData && oldImageData.publicId) {
+                await deleteImage(oldImageData.publicId);
+                console.log('Old image deleted from Cloudinary.');
+            }
+
+            console.log('Process completed.');
+
         } else {
             console.log('Images are the same.');
         }
