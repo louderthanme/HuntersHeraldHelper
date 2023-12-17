@@ -7,7 +7,6 @@ import { downloadImage } from "./downloadImage.js";
 export const runProcess = async () => {
     
     const {url} = await getImageFromFirestore();
-    console.log('Current image url:', url  )
 
     await downloadImage(url, './base-image.png');
 
@@ -15,9 +14,7 @@ export const runProcess = async () => {
     let image2;
     
     try {
-        console.log('Taking screenshot.')
         image2 = await takeScreenshot();
-        console.log('Screenshot taken.');
     } catch (error) {
         console.error('Error taking screenshot:', error.message);
         // Future implementation: Send an email with error.message and additional details
