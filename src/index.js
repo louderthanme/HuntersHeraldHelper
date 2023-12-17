@@ -3,6 +3,9 @@ import areImagesTheSame from "./imageComparison.js"
 import {uploadImage, deleteImage} from "./cloudinary.js";
 import { updateImageInFirestore, getImageFromFirestore } from "./firebase.js";
 import { downloadImage } from "./downloadImage.js";
+import { sendEmail } from "./emailHandler.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const runProcess = async () => {
     
@@ -15,6 +18,10 @@ export const runProcess = async () => {
     
     try {
         image2 = await takeScreenshot();
+        console.log('Screenshot taken.');
+        console.log('attempting to send email');
+        await sendEmail(process.env.CLIENT_EMAIL,'Calendar Updated!', 'Your calendar has been updated!', image2);
+
     } catch (error) {
         console.error('Error taking screenshot:', error.message);
         // Future implementation: Send an email with error.message and additional details
