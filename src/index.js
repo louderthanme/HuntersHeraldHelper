@@ -18,13 +18,10 @@ export const runProcess = async () => {
     
     try {
         image2 = await takeScreenshot();
-        console.log('Screenshot taken.');
-        console.log('attempting to send email');
-        await sendEmail(process.env.CLIENT_EMAIL,'Calendar Updated!', 'Your calendar has been updated!', image2);
-
     } catch (error) {
         console.error('Error taking screenshot:', error.message);
-        // Future implementation: Send an email with error.message and additional details
+        await sendEmail(process.env.CLIENT_EMAIL,'Error while taking screenshot!', error.message, null);
+        console.log('Email sent.');
         return; // Exit the function cause no image.
     }
 
@@ -39,6 +36,9 @@ export const runProcess = async () => {
             console.log('New image uploaded to Cloudinary.');
             await updateImageInFirestore(publicId, imageUrl);
             console.log('New image updated in Firestore.');
+
+            await sendEmail(process.env.CLIENT_EMAIL,'Calendar Updated!', 'The calendar has been updated! Check it out here: https://myodfw.com/reserve-your-hunt', image2);
+            console.log('Email sent.');
             
             if(oldImageData && oldImageData.publicId) {
                 await deleteImage(oldImageData.publicId);
@@ -57,6 +57,8 @@ export const runProcess = async () => {
             console.log('New image uploaded to Cloudinary.');
             await updateImageInFirestore(publicId, imageUrl);
             console.log('New image updated in Firestore.');
+            await sendEmail(process.env.CLIENT_EMAIL,'Calendar Updated!', 'The calendar has been updated! Check it out here: https://myodfw.com/reserve-your-hunt', image2);
+            console.log('Email sent.');
             
             if(oldImageData && oldImageData.publicId) {
                 await deleteImage(oldImageData.publicId);
@@ -66,6 +68,7 @@ export const runProcess = async () => {
             console.log('Process completed.');
         } else {
             console.error('Error during image comparison:', error.message);
+            await sendEmail(process.env.CLIENT_EMAIL,'Error during image comparison:', error.message, null);
         }
     }
 };
