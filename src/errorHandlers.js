@@ -1,5 +1,6 @@
 import { sendEmail } from './emailHandler.js';
 import updateSendCleanup from './updateSendCleanup.js';
+import { screenshotErrorEmailSubject, imageComparisonErrorEmailSubject } from './constants.js';
 
 export const handleScreenshotError = async (error) => {
     console.error('Error taking screenshot:', error.message);
@@ -13,7 +14,7 @@ export const handleImageComparisonError = async ({error, image2}) => {
         await updateSendCleanup({image2});
     } else {
         console.error('Error comparing images:', error.message);
-        await sendEmail(process.env.HUNTER_HERALD_EMAIL,comparisonErrorEmailSubject, error.message, null);
+        await sendEmail(process.env.HUNTER_HERALD_EMAIL,imageComparisonErrorEmailSubject, error.message, null);
         console.log('Email sent.');
         return;
     }
