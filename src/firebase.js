@@ -37,7 +37,9 @@ export const getImageFromFirestore = async () => {
     try {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            return docSnap.data(); // Returns an object with publicId and url
+            const data = docSnap.data();
+            console.log("Current image document data:", data);
+            return data; // Returns an object with publicId and url
         } else {
             console.log("No current image document found in Firestore.");
         }
