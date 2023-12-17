@@ -20,7 +20,7 @@ export const runProcess = async () => {
         image2 = await takeScreenshot();
     } catch (error) {
         console.error('Error taking screenshot:', error.message);
-        await sendEmail(process.env.CLIENT_EMAIL,'Error while taking screenshot!', error.message, null);
+        await sendEmail(process.env.HUNTER_HERALD_EMAIL,'Error while taking screenshot!', error.message, null);
         console.log('Email sent.');
         return; // Exit the function cause no image.
     }
@@ -68,7 +68,7 @@ export const runProcess = async () => {
             console.log('Process completed.');
         } else {
             console.error('Error during image comparison:', error.message);
-            await sendEmail(process.env.CLIENT_EMAIL,'Error during image comparison:', error.message, null);
+            await sendEmail(process.env.HUNTER_HERALD_EMAIL,'Error during image comparison:', error.message, null);
         }
     }
 };
