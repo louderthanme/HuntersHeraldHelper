@@ -1,8 +1,11 @@
 import puppeteer from 'puppeteer';
 
 const takeScreenshot = async () => {
-  const browser = await puppeteer.launch();
-  try {
+    const browser = await puppeteer.launch({ 
+        executablePath: '/path/to/chromium',
+        headless: "new" 
+      });
+        try {
       const page = await browser.newPage();
       await page.goto('https://myodfw.com/reserve-your-hunt');
 
