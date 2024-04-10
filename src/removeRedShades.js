@@ -9,7 +9,7 @@ export const removeRedShades = (img, shadesOfRed) => {
             const green = img.data[idx + 1];
             const blue = img.data[idx + 2];
 
-            // Check if the pixel color is close to any of the shades of red
+            // Check if the pixel color is close to any of the shades of red in the calendar in the page
             if (shadesOfRed.some(shade => 
                 Math.abs(red - shade.r) < colorThreshold &&
                 Math.abs(green - shade.g) < colorThreshold &&
@@ -23,3 +23,4 @@ export const removeRedShades = (img, shadesOfRed) => {
         }
     }
 };
+
